@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  loudoun-app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./loudoun_pdf:/app/loudoun_pdf
+      - ./loudoun_results.xlsx:/app/loudoun_results.xlsx
+    environment:
+      - DOCKER_ENV=true
+      - DISPLAY=:99
+      - CHROME_BIN=/usr/bin/chromium
+      - CHROMEDRIVER_PATH=/usr/bin/chromedriver
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s 
