@@ -9,3 +9,5 @@ pdf2image
 fpdf
 Pillow
 gunicorn
+uvicorn[standard]
+
