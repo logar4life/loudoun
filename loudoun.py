@@ -15,6 +15,8 @@ from urllib.parse import urljoin, urlparse
 import glob
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
+import tempfile
+import uuid
 
 # Credentials
 USERNAME = "nmotahedy"
@@ -31,16 +33,12 @@ if not os.path.exists(PDF_FOLDER):
     os.makedirs(PDF_FOLDER)
 
 def setup_chrome_driver():
-    """Setup Chrome driver with proper options for Docker environment"""
+    """Setup Chrome driver with headless mode always enabled"""
     chrome_options = Options()
     
-    # Check if running in Docker (headless mode)
-    if os.environ.get('DOCKER_ENV') or not os.environ.get('DISPLAY'):
-        chrome_options.headless = True
-        print("🐳 Running in Docker/headless mode")
-    else:
-        chrome_options.headless = False
-        print("🖥️ Running in desktop mode")
+    # Always run in headless mode
+    chrome_options.headless = True
+    print("🕶️ Always running in headless mode (no browser window)")
     
     # Set download directory to the loudoun folder
     download_path = os.path.abspath(PDF_FOLDER)
@@ -50,6 +48,9 @@ def setup_chrome_driver():
         "download.directory_upgrade": True,
         "safebrowsing.enabled": True
     })
+    
+    # Generate unique user data directory to avoid conflicts
+    unique_user_data_dir = os.path.join(tempfile.gettempdir(), f"chrome_user_data_{uuid.uuid4().hex[:8]}")
     
     # Additional options for Docker/headless environment
     chrome_options.add_argument("--no-sandbox")
@@ -67,10 +68,10 @@ def setup_chrome_driver():
     chrome_options.add_argument("--disable-renderer-backgrounding")
     chrome_options.add_argument("--disable-features=TranslateUI")
     chrome_options.add_argument("--disable-ipc-flooding-protection")
-    chrome_options.add_argument("--user-data-dir=/tmp/chrome")
-    chrome_options.add_argument("--data-path=/tmp/chrome")
-    chrome_options.add_argument("--homedir=/tmp/chrome")
-    chrome_options.add_argument("--disk-cache-dir=/tmp/chrome")
+    chrome_options.add_argument(f"--user-data-dir={unique_user_data_dir}")
+    chrome_options.add_argument(f"--data-path={unique_user_data_dir}")
+    chrome_options.add_argument(f"--homedir={unique_user_data_dir}")
+    chrome_options.add_argument(f"--disk-cache-dir={unique_user_data_dir}")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
     
