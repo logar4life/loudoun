@@ -27,3 +27,5 @@ python-dotenv
 # Web framework
 fastapi
 uvicorn[standard]
+
+gunicorn
