@@ -4,7 +4,6 @@ webdriver-manager
 
 # Data processing and analysis
 pandas
-numpy
 
 # PDF processing
 PyMuPDF
@@ -28,14 +27,3 @@ python-dotenv
 # Web framework
 fastapi
 uvicorn[standard]
-
-# Additional dependencies for EasyOCR
-opencv-python-headless
-torch
-torchvision
-
-# Additional dependencies for PDF processing
-poppler-utils
-
-# Additional dependencies for Selenium
-urllib3
