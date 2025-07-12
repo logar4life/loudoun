@@ -10,9 +10,6 @@ PyMuPDF
 pdf2image
 fpdf
 
-# OCR and image processing
-easyocr
-Pillow
 
 # AI and text processing
 openai
