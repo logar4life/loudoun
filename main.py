@@ -16,11 +16,13 @@ app = FastAPI()
 def run_all():
     results = []
     for script, message in scripts:
-        result = subprocess.run([sys.executable, script])
+        result = subprocess.run([sys.executable, script], capture_output=True, text=True)
         results.append({
             "step": message,
             "script": script,
-            "returncode": result.returncode
+            "returncode": result.returncode,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
         })
         if result.returncode != 0:
             return JSONResponse(status_code=500, content={
