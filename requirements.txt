@@ -1,13 +1,41 @@
+# Web scraping and automation
 selenium
 webdriver-manager
+
+# Data processing and analysis
 pandas
-openai
+numpy
+
+# PDF processing
 PyMuPDF
-tiktoken
-easyocr
 pdf2image
 fpdf
+
+# OCR and image processing
+easyocr
 Pillow
-gunicorn
+
+# AI and text processing
+openai
+tiktoken
+
+# HTTP requests
+requests
+
+# Environment and configuration
+python-dotenv
+
+# Web framework
+fastapi
 uvicorn[standard]
 
+# Additional dependencies for EasyOCR
+opencv-python-headless
+torch
+torchvision
+
+# Additional dependencies for PDF processing
+poppler-utils
+
+# Additional dependencies for Selenium
+urllib3
